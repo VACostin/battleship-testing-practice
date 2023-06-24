@@ -84,11 +84,11 @@ const Gameboard = () => {
       } else {
         xLine = { x1, x1Cur, y };
         removeShipX(xLine);
-        return true; // isOverlapping
+        return false; // isOverlapped
       }
     }
     ships.push(ship);
-    return false; // isNotOverlapping
+    return true; // isNotOverlapped
   };
 
   /**
@@ -126,18 +126,19 @@ const Gameboard = () => {
       } else {
         yLine = { x, y1, y1Cur };
         removeShipY(yLine);
-        return true; // isOverlapping
+        return false; // isOverlapped
       }
     }
     ships.push(ship);
-    return false; // isNotOverlapping
+    return true; // isNotOverlapped
   };
   /**
    * @param {{x1: number, x2: number, y1: number, y2: number}} coordinates Points defining ship's edges
-   * @description returns true - the line is overlapping or L shaped.
+   * @description returns false - the line is overlapped or L shaped.
+   *              returns true - the ship has been placed successfully.
    * @returns {boolean}
    */
-  const isOverlapping = (coordinates) => {
+  const buildShip = (coordinates) => {
     let { x1, x2, y1, y2 } = coordinates;
     if (y1 === y2) {
       // ship placed on X axis
@@ -153,7 +154,7 @@ const Gameboard = () => {
       const yLine = { x, y1, y2 };
       return buildShipY(yLine);
     }
-    return true; // L-shaped
+    return false; // L-shaped
   };
 
   /**
@@ -167,7 +168,7 @@ const Gameboard = () => {
    */
 
   const placeShip = (coordinates) =>
-    !(isOutOfBounds(coordinates) || isOverlapping(coordinates));
+    !(isOutOfBounds(coordinates) || !buildShip(coordinates));
 
   const hitShipAt = (position) => {
     const positionString = JSON.stringify(position);
