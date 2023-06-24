@@ -1,7 +1,7 @@
-import ship from "../src/ship";
+import Ship from "../src/ship";
 
 const length = 5;
-const shipObj = ship(length);
+const shipObj = Ship(length);
 
 describe("Initial ship state", () => {
   test("Ship not sunk at start", () => {
@@ -10,21 +10,19 @@ describe("Initial ship state", () => {
 });
 
 describe("Hitting ship untill it sinks and beyond", () => {
-  test("Ship not sunk yet", () => {
+  test("Hitting once - Ship not sunk yet", () => {
     shipObj.hit();
     expect(shipObj.isSunk()).toBeFalsy();
   });
-  test("Ship not sunk yet", () => {
-    shipObj.hit();
-    shipObj.hit();
-    shipObj.hit();
+  test("Hitting until 1HP - Ship not sunk yet", () => {
+    for (let i = 0; i < length - 2; i += 1) shipObj.hit();
     expect(shipObj.isSunk()).toBeFalsy();
   });
-  test("Ship is sunk", () => {
+  test("Last hit - Ship is sunk", () => {
     shipObj.hit();
     expect(shipObj.isSunk()).toBeTruthy();
   });
-  test("Ship extra hits won't bring back the ship, you know?", () => {
+  test("Extra hits won't bring back the ship, you know?", () => {
     shipObj.hit();
     expect(shipObj.isSunk()).toBeTruthy();
   });

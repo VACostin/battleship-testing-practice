@@ -1,24 +1,22 @@
-const ship = (length) => {
+const Ship = (length) => {
   let sunkFlag = false;
   let hits = 0;
 
-  function incrementHits() {
+  const incrementHits = () => {
     hits += 1;
     return hits >= length;
   }
 
-  function hit() {
+  const hit = () => {
     sunkFlag = sunkFlag || incrementHits();
   }
 
-  function isSunk() {
-    return sunkFlag;
-  }
+  const isSunk = () => sunkFlag;
 
   return {
     hit,
     isSunk,
-  }
+  };
 };
 
-export default ship;
+export default Ship;
