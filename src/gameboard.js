@@ -172,6 +172,11 @@ const Gameboard = () => {
   const placeShip = (coordinates) =>
     !(isOutOfBounds(coordinates) || !buildShip(coordinates));
 
+  /**
+   * @param {{x: number, y: number}} position position to look for ship
+   * @description In theory there should always be a ship at the position supplied.
+   * Otherwise an error is thrown because it takes a lot of code magic to reach the error line.
+   */
   const hitShipAt = (position) => {
     const positionString = JSON.stringify(position);
     for (let i = 0; i < ships.length; i += 1) {
