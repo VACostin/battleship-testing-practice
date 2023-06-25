@@ -82,6 +82,7 @@ const Gameboard = () => {
         ship.span.push(JSON.stringify([x1Cur, y])); // much easier to compare strings than arrays
         x1Cur += 1;
       } else {
+        x1Cur -= 1;
         xLine = { x1, x1Cur, y };
         removeShipX(xLine);
         return false; // isOverlapped
@@ -113,7 +114,7 @@ const Gameboard = () => {
   const buildShipY = (yLine) => {
     const { x, y1, y2 } = yLine;
     const ship = {
-      interact: Ship(y2 - y1),
+      interact: Ship(y2 - y1 + 1),
       span: [],
     };
     let y1Cur = y1;
@@ -124,6 +125,7 @@ const Gameboard = () => {
         ship.span.push(JSON.stringify([x, y1Cur])); // much easier to compare strings than arrays
         y1Cur += 1;
       } else {
+        y1Cur -= 1;
         yLine = { x, y1, y1Cur };
         removeShipY(yLine);
         return false; // isOverlapped
@@ -219,20 +221,20 @@ const Gameboard = () => {
   /**
    *@description Resets all internal flags and arrays to default values
    */
-  const resetBoard = () => {
+  const reset = () => {
     allSunkFlag = false;
     for (let i = 0; i < BOARD_SIZE; i += 1)
       for (let j = 0; j < BOARD_SIZE; j += 1) board[i][j] = CODE.empty.val;
     while (ships.length > 0) ships.pop();
   };
 
-  resetBoard();
+  reset();
 
   return {
     placeShip,
     receiveAttack,
     isAllSunk,
-    resetBoard,
+    reset,
   };
 };
 

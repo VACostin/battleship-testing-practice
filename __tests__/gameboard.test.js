@@ -139,7 +139,7 @@ for (let i = 1; i <= ITERATION_NUMBER; i += 1) {
       );
     });
     afterAll(() => {
-      gameboard.resetBoard();
+      gameboard.reset();
     });
   });
 }
